@@ -1,0 +1,10 @@
+[
+    {
+        "model": "pillarquestapi.questpillar",
+        "pk": 1,
+        "fields": {
+            "quest": 1,
+            "pillar": 1
+        }
+    }
+]

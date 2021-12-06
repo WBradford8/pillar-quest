@@ -1,0 +1,23 @@
+[
+    {
+        "model": "pillarquestapi.pillars",
+        "pk": 1,
+        "fields": {
+            "label": "Mental"
+        }
+    },
+    {
+        "model": "pillarquestapi.pillars",
+        "pk": 2,
+        "fields": {
+            "label": "Spiritual"
+        }
+    },
+    {
+        "model": "pillarquestapi.pillars",
+        "pk": 3,
+        "fields": {
+            "label": "Physical"
+        }
+    }
+]

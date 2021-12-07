@@ -4,5 +4,14 @@
     "python.linting.pylintArgs": [
         "--load-plugins=pylint_django",
         "--django-settings-module=<pillar_quest>.settings",
-    ],    
+    ],
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "pillar_quest",
+            "database": "db.sqlite3"
+        }
+    ],
+    
 }

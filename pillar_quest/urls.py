@@ -18,10 +18,11 @@ from django.conf.urls import include
 from django.urls import path
 from pillarquestapi.views import register_user, login_user
 from rest_framework import routers
-from pillarquestapi.views import QuestView
+from pillarquestapi.views import QuestView, PillarsView 
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'quests', QuestView, 'quest')
+router.register(r'pillars', PillarsView, 'pillars')
 
 urlpatterns = [
     path('register', register_user),

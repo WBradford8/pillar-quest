@@ -1,4 +1,4 @@
-"""View module for handling requests about games"""
+"""View module for handling requests about quests"""
 from django.core.exceptions import ValidationError
 from rest_framework import status
 from django.http import HttpResponseServerError
@@ -8,6 +8,9 @@ from rest_framework import serializers
 from rest_framework import status
 from pillarquestapi.models import Quest
 from django.contrib.auth.models import User
+from pillarquestapi.models import pillars
+
+from pillarquestapi.models.pillars import Pillars
 
 
 class QuestView(ViewSet):
@@ -116,14 +119,18 @@ class QuestView(ViewSet):
 
         return Response({}, status=status.HTTP_204_NO_CONTENT)
 
-
+class PillarsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Pillars
+        fields = ('id', 'label')
 # make serializer for students
 class QuestsSerializer(serializers.ModelSerializer):
     """JSON serializer for students
     Arguments:
         serializer type
     """
+    pillars = PillarsSerializer(many = True)
     class Meta:
         model = Quest
-        fields = ('id', 'quest_title', 'quest_objective')
+        fields = ('id', 'quest_title', 'quest_objective', 'pillars')
         depth = 1

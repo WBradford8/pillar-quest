@@ -64,15 +64,17 @@ class QuestView(ViewSet):
         """
         # specify current user
         current_user = request.auth.user
+        pillars = Pillars.objects.get(pk=request.data["pillars"])
 
        # set up new quest object with user inputs
         try:
             new_quest = Quest.objects.create(
                 quest_title=request.data["quest_title"],
                 quest_objective=request.data["quest_objective"],
+                completed=request.data["completed"],
                 user=current_user,
             )
-
+            new_quest.pillars.add(pillars)
             # translate to JSON and respond to the client side
             serializer = QuestsSerializer(
                 new_quest, context={'request': request})
@@ -115,6 +117,8 @@ class QuestView(ViewSet):
         # update quest info
         quest_to_update.quest_title = request.data["quest_title"]
         quest_to_update.quest_objective = request.data["quest_objective"]
+        # quest_to_update.pillars = request.data["pillars"]
+        quest_to_update.completed = request.data["completed"]
         quest_to_update.save()
 
         return Response({}, status=status.HTTP_204_NO_CONTENT)
@@ -132,5 +136,5 @@ class QuestsSerializer(serializers.ModelSerializer):
     pillars = PillarsSerializer(many = True)
     class Meta:
         model = Quest
-        fields = ('id', 'quest_title', 'quest_objective', 'pillars')
+        fields = ('id', 'quest_title', 'quest_objective', 'pillars', 'completed')
         depth = 1

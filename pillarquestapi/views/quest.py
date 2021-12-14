@@ -64,7 +64,7 @@ class QuestView(ViewSet):
         """
         # specify current user
         current_user = request.auth.user
-        pillars = Pillars.objects.get(pk=request.data["pillars"])
+        
 
        # set up new quest object with user inputs
         try:
@@ -74,7 +74,7 @@ class QuestView(ViewSet):
                 completed=request.data["completed"],
                 user=current_user,
             )
-            new_quest.pillars.add(pillars)
+            new_quest.pillars.set(request.data["pillars"])
             # translate to JSON and respond to the client side
             serializer = QuestsSerializer(
                 new_quest, context={'request': request})

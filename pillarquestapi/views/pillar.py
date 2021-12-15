@@ -21,17 +21,17 @@ class PillarsView(ViewSet):
         """
 
         # get current user
-        current_user = request.auth.user.id
+        # current_user = request.auth.user.id
 
         # get all pillars, then get all pillars with current user's pk as a foreign key
         pillars = Pillars.objects.all()
-        if pillars is not None:
+        # if pillars is not None:
             # section in filter is (column in quest table :: what we're matching to in filter)
-            current_user_pillars = pillars.filter(user_id=current_user)
+            # current_user_pillars = pillars.filter(user_id=current_user)
 
         # translate to JSON and respond to client side
         pillars_serializer = PillarsSerializer(
-            current_user_pillars, many=True, context={'request': request})
+            pillars, many=True, context={'request': request})
 
         return Response(pillars_serializer.data)
 

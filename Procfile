@@ -1,0 +1,1 @@
+web: gunicorn pillar_quest.wsgi --log-file -

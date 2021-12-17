@@ -25,13 +25,18 @@ class QuestView(ViewSet):
 
         # get current user
         current_user = request.auth.user
-
+        completed = self.request.query_params.get("completed", None)
+        incompleted = self.request.query_params.get("incompleted", None)
         # get all quests, then get all quests with current user's pk as a foreign key
         quests = Quest.objects.all()
         if quests is not None:
             # section in filter is (column in quest table :: what we're matching to in filter)
             current_user_quests = quests.filter(user_id=current_user)
-
+        
+            if incompleted is not None:
+                current_user_quests = current_user_quests.filter(completed=False)
+            if completed is not None:
+                current_user_quests = current_user_quests.filter(completed=True)
         # translate to JSON and respond to client side
         quests_serializer = QuestsSerializer(
             current_user_quests, many=True, context={'request': request})
